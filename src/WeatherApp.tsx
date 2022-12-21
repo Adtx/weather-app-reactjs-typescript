@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
 import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
+import { StyledHeader, StyledWeatherApp, Title } from "./styles"
 
 export const WeatherApp = () => {
   const [temperature, setTemperature] = useState(234)
@@ -14,8 +15,11 @@ export const WeatherApp = () => {
   }, [])
 
   return (
-    <div style={{ margin: "15px auto", width: "30%", textAlign: "center" }}>
+    <StyledWeatherApp>
+      <StyledHeader>
+        <Title>Weather app</Title>
+      </StyledHeader>
       <TemperatureDisplay temperature={temperature} unit={unit} />
-    </div>
+    </StyledWeatherApp>
   )
 }
