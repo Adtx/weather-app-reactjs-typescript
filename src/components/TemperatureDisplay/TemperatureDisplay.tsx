@@ -12,7 +12,7 @@ export const TemperatureDisplay = ({
 }: TemperatureDisplayProps) => {
   return (
     <StyledTemperatureDisplay>
-      {temperature + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF")}
+      {temperature.toFixed(1) + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF")}
     </StyledTemperatureDisplay>
   )
 }
