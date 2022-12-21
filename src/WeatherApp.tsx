@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
 import { LocationPicker } from "./components/LocationPicker/LocationPicker"
-import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
+import TemperatureDisplay from "./components/TemperatureDisplay/TemperatureDisplay"
+import { UnitsToggle } from "./components/UnitsToggle/UnitsToggle"
 import { InputArea, StyledHeader, StyledWeatherApp, Title } from "./styles"
 
 export const WeatherApp = () => {
@@ -10,11 +11,11 @@ export const WeatherApp = () => {
   const [location, setLocation] = useState("Lisbon")
 
   useEffect(() => {
-    fetchWeatherInfo(location).then((weatherInfo) => {
+    fetchWeatherInfo(location, unit).then((weatherInfo) => {
       const { temp, sunrise, sunset } = weatherInfo!
       setTemperature(temp)
     })
-  }, [location])
+  }, [location, unit])
 
   return (
     <StyledWeatherApp>
@@ -23,6 +24,7 @@ export const WeatherApp = () => {
       </StyledHeader>
       <InputArea>
         <LocationPicker setLocation={setLocation} />
+        <UnitsToggle setUnit={setUnit} />
       </InputArea>
       <TemperatureDisplay temperature={temperature} unit={unit} />
     </StyledWeatherApp>
