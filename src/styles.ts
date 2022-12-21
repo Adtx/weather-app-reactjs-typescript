@@ -25,3 +25,10 @@ export const StyledWeatherApp = styled.main`
   margin: auto;
   width: 35vw;
 `
+
+export const InputArea = styled.section`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10%;
+  width: 80%;
+`
