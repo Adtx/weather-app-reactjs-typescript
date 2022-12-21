@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
+import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
 
 export const WeatherApp = () => {
   const [temperature, setTemperature] = useState(234)
-  const [unit, setUnit] = useState("celsius")
+  const [unit, setUnit] = useState(0)
 
   useEffect(() => {
     fetchWeatherInfo().then((weatherInfo) => {
@@ -14,7 +15,7 @@ export const WeatherApp = () => {
 
   return (
     <div style={{ margin: "15px auto", width: "30%", textAlign: "center" }}>
-      <h2>{temperature + " " + (unit === "celsius" ? "ºC" : "ºF")}</h2>
+      <TemperatureDisplay temperature={temperature} unit={unit} />
     </div>
   )
 }
