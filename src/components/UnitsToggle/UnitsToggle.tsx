@@ -19,11 +19,7 @@ export const UnitsToggle = ({ setUnit }: UnitsToggleProps) => {
   return (
     <StyledUnitsToggle>
       <UnitLabel>ºC</UnitLabel>
-      <Switch
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ "aria-label": "controlled" }}
-      />
+      <Switch checked={checked} onChange={handleChange} />
       <UnitLabel>ºF</UnitLabel>
     </StyledUnitsToggle>
   )

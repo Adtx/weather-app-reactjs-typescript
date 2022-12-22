@@ -1,14 +1,14 @@
-import { useEffect, useState, useRef } from "react"
+import * as S from "./styles"
+import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
-import { LocationPicker } from "./components/LocationPicker/LocationPicker"
 import TemperatureDisplay from "./components/TemperatureDisplay/TemperatureDisplay"
+import { LocationPicker } from "./components/LocationPicker/LocationPicker"
 import { UnitsToggle } from "./components/UnitsToggle/UnitsToggle"
 import { WeatherIcon } from "./components/WeatherIcon/WeatherIcon"
 import { DaylightClock } from "./DaylightClock/DaylightClock"
-import { InputArea, StyledHeader, StyledWeatherApp, Title } from "./styles"
 
 export const WeatherApp = () => {
-  const [temperature, setTemperature] = useState(234)
+  const [temperature, setTemperature] = useState(0)
   const [unit, setUnit] = useState(0)
   const [location, setLocation] = useState("Lisbon")
   const [weatherIcon, setWeatherIcon] = useState<string | null>(null)
@@ -24,17 +24,17 @@ export const WeatherApp = () => {
   }, [location, unit])
 
   return (
-    <StyledWeatherApp>
-      <StyledHeader>
-        <Title>Weather app</Title>
-      </StyledHeader>
-      <InputArea>
+    <S.StyledWeatherApp>
+      <S.Header>
+        <S.Title>Weather app</S.Title>
+      </S.Header>
+      <S.InputArea>
         <LocationPicker setLocation={setLocation} />
         <UnitsToggle setUnit={setUnit} />
-      </InputArea>
+      </S.InputArea>
       <TemperatureDisplay temperature={temperature} unit={unit} />
       <WeatherIcon icon={weatherIcon!} />
       <DaylightClock daylightTimes={daylightTimes} />
-    </StyledWeatherApp>
+    </S.StyledWeatherApp>
   )
 }
