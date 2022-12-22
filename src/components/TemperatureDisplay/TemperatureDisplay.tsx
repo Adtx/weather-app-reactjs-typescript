@@ -6,7 +6,7 @@ import { UNITS } from "../UnitsToggle/UnitsToggle"
 const TemperatureDisplay = ({ temperature, unit }: TemperatureDisplayProps) => {
   return (
     <StyledTemperatureDisplay>
-      {temperature.toFixed(1) + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF")}
+      {temperature.toFixed() + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF")}
     </StyledTemperatureDisplay>
   )
 }
