@@ -15,6 +15,30 @@ export const StyledLocationPicker = styled.div`
     justify-content: space-around;
     height: 4vh;
   }
+
+  @media (min-width: 520px) {
+    width: 26%;
+  }
+
+  @media (min-width: 530px) {
+    width: 35%;
+  }
+
+  @media (min-width: 531px) {
+    width: 30%;
+  }
+
+  @media (min-width: 610px) {
+    width: 26%;
+  }
+
+  @media (min-width: 750px) {
+    width: 30%;
+  }
+
+  @media (min-width: 1000px) {
+    width: 30%;
+  }
 `
 
 export const OptionsMenu = styled.div`

@@ -24,6 +24,22 @@ export const StyledWeatherApp = styled.main`
   height: 100vh;
   margin: auto;
   width: 35vw;
+
+  @media (max-width: 1150px) {
+    width: 45%;
+  }
+
+  @media (max-width: 950px) {
+    width: 50%;
+  }
+
+  @media (max-width: 750px) {
+    width: 65%;
+  }
+
+  @media (max-width: 520px) {
+    width: 100%;
+  }
 `
 
 export const InputArea = styled.section`
