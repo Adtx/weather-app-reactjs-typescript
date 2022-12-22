@@ -30,8 +30,10 @@ export const LocationPicker = ({ setLocation }: LocationPickerProps) => {
       </div>
       {displayOptionsMenu && (
         <OptionsMenu>
-          {LOCATIONS.map((location) => (
-            <div onClick={(e) => onOptionClick(e)}>{location}</div>
+          {LOCATIONS.map((location, index) => (
+            <div key={index} onClick={(e) => onOptionClick(e)}>
+              {location}
+            </div>
           ))}
         </OptionsMenu>
       )}
