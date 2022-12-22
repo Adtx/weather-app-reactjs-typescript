@@ -3,7 +3,17 @@ import { OptionsMenu, StyledLocationPicker } from "./styles"
 import { LocationPickerProps } from "./types"
 import { RiArrowDropUpFill, RiArrowDropDownFill } from "react-icons/ri"
 
-const LOCATIONS = ["Lisbon", "London", "New York"]
+const LOCATIONS = [
+  "Lisbon",
+  "London",
+  "Madrid",
+  "Miami",
+  "New York",
+  "Paris",
+  "Rio de Janeiro",
+  "Sydney",
+  "Tokyo",
+]
 const OPTIONS_MENU_ICON_SIZE = "20px"
 
 export const LocationPicker = ({ setLocation }: LocationPickerProps) => {
