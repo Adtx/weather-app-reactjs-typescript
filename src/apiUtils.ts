@@ -18,10 +18,11 @@ export const fetchWeatherInfo = async (
   try {
     const res = await fetch(`${WEATHER_API_BASE_URL}?${apiQueryString}`)
     const {
+      weather: [{ icon }],
       main: { temp },
       sys: { sunrise, sunset },
     } = (await res.json()) as WeatherInfo
-    return { temp, sunrise, sunset }
+    return { temp, icon, sunrise, sunset }
   } catch (error) {
     console.error(error)
   }
