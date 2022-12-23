@@ -16,29 +16,33 @@ const LOCATIONS = [
 ]
 const OPTIONS_MENU_ICON_SIZE = "20px"
 
-export const LocationPicker = ({ setLocation }: LocationPickerProps) => {
+export const LocationPicker = ({
+  setLocation,
+  locationPickerRef,
+  displayLocationsMenu,
+  setDisplayLocationsMenu,
+}: LocationPickerProps) => {
   const [value, setValue] = useState(LOCATIONS[0])
-  const [displayOptionsMenu, setDisplayOptionsMenu] = useState(false)
 
-  const onSelectClick = () => setDisplayOptionsMenu((display) => !display)
+  const onSelectClick = () => setDisplayLocationsMenu((display) => !display)
 
   const onOptionClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setValue((e.target as HTMLDivElement).textContent!)
-    setDisplayOptionsMenu(false)
+    setDisplayLocationsMenu(false)
     setLocation((e.target as HTMLDivElement).textContent!)
   }
 
   return (
-    <StyledLocationPicker>
+    <StyledLocationPicker ref={locationPickerRef}>
       <div onClick={onSelectClick}>
         {value}{" "}
-        {displayOptionsMenu ? (
+        {displayLocationsMenu ? (
           <RiArrowDropUpFill fontSize={OPTIONS_MENU_ICON_SIZE} />
         ) : (
           <RiArrowDropDownFill fontSize={OPTIONS_MENU_ICON_SIZE} />
         )}
       </div>
-      {displayOptionsMenu && (
+      {displayLocationsMenu && (
         <OptionsMenu>
           {LOCATIONS.map((location, index) => (
             <div key={index} onClick={(e) => onOptionClick(e)}>

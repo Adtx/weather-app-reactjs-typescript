@@ -1,5 +1,5 @@
 import * as S from "./styles"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
 import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
 import { LocationPicker } from "./components/LocationPicker/LocationPicker"
@@ -13,6 +13,9 @@ export const WeatherApp = () => {
   const [location, setLocation] = useState("Lisbon")
   const [weatherIcon, setWeatherIcon] = useState({ icon: "", description: "" })
   const [daylightTimes, setDaylightTimes] = useState({ sunrise: 0, sunset: 0 })
+  const [openLocationPicker, setOpenLocationPicker] = useState(false)
+
+  const locationPickerRef = useRef(null)
 
   useEffect(() => {
     fetchWeatherInfo(location, unit).then((weatherInfo) => {
@@ -25,13 +28,32 @@ export const WeatherApp = () => {
     })
   }, [location, unit])
 
+  const closeLocationPicker = (
+    e: React.MouseEvent<HTMLElement, MouseEvent>
+  ) => {
+    if (
+      locationPickerRef.current &&
+      !(locationPickerRef.current as HTMLDivElement).contains(
+        e.target as HTMLElement
+      )
+    )
+      setOpenLocationPicker(false)
+  }
+
+  const locationPickerProps = {
+    setLocation,
+    locationPickerRef,
+    displayLocationsMenu: openLocationPicker,
+    setDisplayLocationsMenu: setOpenLocationPicker,
+  }
+
   return (
-    <S.StyledWeatherApp>
+    <S.StyledWeatherApp onClick={closeLocationPicker}>
       <S.Header>
         <S.Title>Weather app</S.Title>
       </S.Header>
       <S.InputArea>
-        <LocationPicker setLocation={setLocation} />
+        <LocationPicker {...locationPickerProps} />
         <UnitsToggle setUnit={setUnit} />
       </S.InputArea>
       <TemperatureDisplay temperature={temperature!} />
