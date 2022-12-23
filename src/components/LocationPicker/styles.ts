@@ -9,6 +9,10 @@ export const StyledLocationPicker = styled.div`
   position: relative;
   width: 30%;
 
+  :hover {
+    cursor: pointer;
+  }
+
   & > div:first-of-type {
     align-items: center;
     display: flex;
@@ -55,6 +59,10 @@ export const OptionsMenu = styled.div`
   position: absolute;
   top: 4.2vh;
   width: 100%;
+
+  :hover {
+    cursor: pointer;
+  }
 
   & > div {
     align-items: center;
