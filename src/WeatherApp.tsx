@@ -35,7 +35,7 @@ export const WeatherApp = () => {
         <UnitsToggle setUnit={setUnit} />
       </S.InputArea>
       <TemperatureDisplay temperature={temperature!} />
-      <WeatherIcon icon={weatherIcon!} />
+      <WeatherIcon icon={weatherIcon} />
       <DaylightClock daylightTimes={daylightTimes} />
     </S.StyledWeatherApp>
   )
