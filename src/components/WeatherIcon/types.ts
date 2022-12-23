@@ -1,3 +1,3 @@
 export interface WeatherIconProps {
-  icon: string
+  icon: { icon: string; description: string }
 }

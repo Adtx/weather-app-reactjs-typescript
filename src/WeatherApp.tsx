@@ -11,16 +11,16 @@ export const WeatherApp = () => {
   const [temperature, setTemperature] = useState<string | null>(null)
   const [unit, setUnit] = useState(0)
   const [location, setLocation] = useState("Lisbon")
-  const [weatherIcon, setWeatherIcon] = useState<string | null>(null)
+  const [weatherIcon, setWeatherIcon] = useState({ icon: "", description: "" })
   const [daylightTimes, setDaylightTimes] = useState({ sunrise: 0, sunset: 0 })
 
   useEffect(() => {
     fetchWeatherInfo(location, unit).then((weatherInfo) => {
-      const { temp, icon, sunrise, sunset } = weatherInfo!
+      const { temp, description, icon, sunrise, sunset } = weatherInfo!
       setTemperature(
         temp.toFixed() + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF")
       )
-      setWeatherIcon(icon)
+      setWeatherIcon({ icon, description })
       setDaylightTimes({ sunrise, sunset })
     })
   }, [location, unit])
