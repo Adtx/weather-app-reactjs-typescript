@@ -14,6 +14,10 @@ export const StyledLocationPicker = styled.div`
     display: flex;
     justify-content: space-around;
     height: 4vh;
+
+    @media (max-width: 1366px) {
+      height: 6vh;
+    }
   }
 
   @media (min-width: 520px) {
@@ -60,5 +64,9 @@ export const OptionsMenu = styled.div`
     :hover {
       background-color: #f0ecec;
     }
+  }
+
+  @media (max-width: 1366px) {
+    top: 6.2vh;
   }
 `
