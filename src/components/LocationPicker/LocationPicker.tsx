@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { OptionsMenu, StyledLocationPicker } from "./styles"
+import * as S from "./styles"
 import { LocationPickerProps } from "./types"
 import { RiArrowDropUpFill, RiArrowDropDownFill } from "react-icons/ri"
 
@@ -33,7 +33,7 @@ export const LocationPicker = ({
   }
 
   return (
-    <StyledLocationPicker ref={locationPickerRef}>
+    <S.StyledLocationPicker ref={locationPickerRef}>
       <div onClick={onSelectClick}>
         {value}{" "}
         {displayLocationsMenu ? (
@@ -43,14 +43,14 @@ export const LocationPicker = ({
         )}
       </div>
       {displayLocationsMenu && (
-        <OptionsMenu>
+        <S.OptionsMenu>
           {LOCATIONS.map((location, index) => (
             <div key={index} onClick={(e) => onOptionClick(e)}>
               {location}
             </div>
           ))}
-        </OptionsMenu>
+        </S.OptionsMenu>
       )}
-    </StyledLocationPicker>
+    </S.StyledLocationPicker>
   )
 }

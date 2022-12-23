@@ -1,4 +1,4 @@
-import { Icon, StyledWeatherIcon, Tooltip } from "./styles"
+import * as S from "./styles"
 import { WeatherIconProps } from "./types"
 
 export const WeatherIcon = ({
@@ -7,11 +7,11 @@ export const WeatherIcon = ({
   const ICON_URL = `http://openweathermap.org/img/wn/${icon}@2x.png`
 
   return (
-    <StyledWeatherIcon>
-      <Icon src={ICON_URL} alt="Weather icon" />
-      <Tooltip>
+    <S.StyledWeatherIcon>
+      <S.Icon src={ICON_URL} alt="Weather icon" />
+      <S.Tooltip>
         {description.charAt(0).toUpperCase() + description.slice(1)}
-      </Tooltip>
-    </StyledWeatherIcon>
+      </S.Tooltip>
+    </S.StyledWeatherIcon>
   )
 }

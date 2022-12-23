@@ -1,6 +1,6 @@
 import { Switch } from "@mui/material"
 import { useState } from "react"
-import { StyledUnitsToggle, UnitLabel } from "./styles"
+import * as S from "./styles"
 import { UnitsToggleProps } from "./types"
 
 export enum UNITS {
@@ -17,10 +17,10 @@ export const UnitsToggle = ({ setUnit }: UnitsToggleProps) => {
   }
 
   return (
-    <StyledUnitsToggle>
-      <UnitLabel>ºC</UnitLabel>
+    <S.StyledUnitsToggle>
+      <S.UnitLabel>ºC</S.UnitLabel>
       <Switch checked={checked} onChange={handleChange} />
-      <UnitLabel>ºF</UnitLabel>
-    </StyledUnitsToggle>
+      <S.UnitLabel>ºF</S.UnitLabel>
+    </S.StyledUnitsToggle>
   )
 }
