@@ -17,7 +17,7 @@ const LOCATIONS = [
 const OPTIONS_MENU_ICON_SIZE = "20px"
 
 export const LocationPicker = ({
-  setLocation,
+  setDisplayData,
   locationPickerRef,
   displayLocationsMenu,
   setDisplayLocationsMenu,
@@ -29,7 +29,10 @@ export const LocationPicker = ({
   const onOptionClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     setValue((e.target as HTMLDivElement).textContent!)
     setDisplayLocationsMenu(false)
-    setLocation((e.target as HTMLDivElement).textContent!)
+    setDisplayData((displayData) => ({
+      ...displayData,
+      location: (e.target as HTMLDivElement).textContent!,
+    }))
   }
 
   return (

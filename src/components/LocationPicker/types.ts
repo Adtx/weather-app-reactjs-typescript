@@ -1,5 +1,7 @@
+import { displayDataType } from "../../types"
+
 export interface LocationPickerProps {
-  setLocation: React.Dispatch<React.SetStateAction<string>>
+  setDisplayData: React.Dispatch<React.SetStateAction<displayDataType>>
   locationPickerRef: React.MutableRefObject<any>
   displayLocationsMenu: boolean
   setDisplayLocationsMenu: React.Dispatch<React.SetStateAction<boolean>>

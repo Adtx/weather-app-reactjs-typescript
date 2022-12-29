@@ -1,3 +1,16 @@
+export type displayDataType = {
+  location: string
+  temperature: string | null
+  weatherIcon: {
+    icon: string
+    description: string
+  }
+  daylightTimes: {
+    sunrise: number
+    sunset: number
+  }
+}
+
 export interface WeatherInfo {
   coord: Coordinates
   weather: Weather[]
