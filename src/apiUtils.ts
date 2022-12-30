@@ -3,6 +3,28 @@ import { WeatherInfo } from "./types"
 const WEATHER_API_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 const UNIT_SYSTEM = ["metric", "imperial"]
 
+// Return true if results are older than 30 minutes
+const apiResultsOutOfDate = (timestamp: number | null) => {
+  const now = Math.floor(new Date().getTime() / 1000)
+  return timestamp && now - timestamp > 1800
+}
+
+export const getAPIResultsFromSessionStorage = (
+  location: string
+): WeatherInfo | null => {
+  const apiResults = JSON.parse(
+    sessionStorage.getItem(location) || "null"
+  ) as WeatherInfo
+  return apiResults && !apiResultsOutOfDate(apiResults.dt) ? apiResults : null
+}
+
+export const saveAPIResultsToSessionStorage = (
+  location: string,
+  apiResults: WeatherInfo
+) => {
+  sessionStorage.setItem(location, JSON.stringify(apiResults))
+}
+
 export const fetchWeatherInfo = async (
   location: string = "lisbon",
   units: number = 0
@@ -16,12 +38,17 @@ export const fetchWeatherInfo = async (
   const apiQueryString = new URLSearchParams(urlParams).toString()
 
   try {
-    const res = await fetch(`${WEATHER_API_BASE_URL}?${apiQueryString}`)
+    let apiResults = getAPIResultsFromSessionStorage(location)
+    if (apiResults === null) {
+      const res = await fetch(`${WEATHER_API_BASE_URL}?${apiQueryString}`)
+      apiResults = (await res.json()) as WeatherInfo
+      saveAPIResultsToSessionStorage(location, apiResults)
+    }
     const {
       weather: [{ description, icon }],
       main: { temp },
       sys: { sunrise, sunset },
-    } = (await res.json()) as WeatherInfo
+    } = apiResults
     return { temp, description, icon, sunrise, sunset }
   } catch (error) {
     console.error(error)
