@@ -22,10 +22,12 @@ export const WeatherApp = () => {
     },
   })
   const [openLocationPicker, setOpenLocationPicker] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const locationPickerRef = useRef(null)
 
   useEffect(() => {
+    setLoading(true)
     fetchWeatherInfo(displayData.location).then((weatherInfo) => {
       const { temp, description, icon, sunrise, sunset } = weatherInfo!
       setDisplayData((displayData) => ({
@@ -34,6 +36,7 @@ export const WeatherApp = () => {
         weatherIcon: { icon, description },
         daylightTimes: { sunrise, sunset },
       }))
+      setLoading(false)
     })
   }, [displayData.location])
 
@@ -65,9 +68,18 @@ export const WeatherApp = () => {
         <LocationPicker {...locationPickerProps} />
         <UnitsToggle setDisplayData={setDisplayData} />
       </S.InputArea>
-      <TemperatureDisplay temperature={displayData.temperature!} />
-      <WeatherIcon icon={displayData.weatherIcon} />
-      <DaylightClock daylightTimes={displayData.daylightTimes} />
+      {
+        // prettier-ignore
+        loading 
+        ? 
+          <S.LoadingMessage>Loading...</S.LoadingMessage>
+        : 
+          <>
+            <TemperatureDisplay temperature={displayData.temperature!} />
+            <WeatherIcon icon={displayData.weatherIcon} />
+            <DaylightClock daylightTimes={displayData.daylightTimes} />
+          </>
+      }
     </S.StyledWeatherApp>
   )
 }

@@ -48,3 +48,11 @@ export const InputArea = styled.section`
   margin-top: 10%;
   width: 80%;
 `
+
+export const LoadingMessage = styled.h2`
+  color: #fff;
+  font-size: 3rem;
+  margin-top: 25%;
+  text-align: center;
+  width: 60%;
+`
