@@ -28,16 +28,21 @@ export const WeatherApp = () => {
 
   useEffect(() => {
     setLoading(true)
+    let requestCanceled = false
     fetchWeatherInfo(displayData.location).then((weatherInfo) => {
-      const { temp, description, icon, sunrise, sunset } = weatherInfo!
-      setDisplayData((displayData) => ({
-        ...displayData,
-        temperature: temp.toFixed() + " ºC",
-        weatherIcon: { icon, description },
-        daylightTimes: { sunrise, sunset },
-      }))
-      setLoading(false)
+      if (!requestCanceled) {
+        const { temp, description, icon, sunrise, sunset } = weatherInfo!
+        setDisplayData((displayData) => ({
+          ...displayData,
+          temperature: temp.toFixed() + " ºC",
+          weatherIcon: { icon, description },
+          daylightTimes: { sunrise, sunset },
+        }))
+        setLoading(false)
+      }
     })
+    // prettier-ignore
+    return () => { requestCanceled = true }
   }, [displayData.location])
 
   const closeLocationPicker = (
