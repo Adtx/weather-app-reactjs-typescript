@@ -9,11 +9,9 @@ export enum UNITS {
 const NUMBER_OF_AVAILABLE_UNITS = 2
 
 export const UnitsToggle = ({ setDisplayData }: UnitsToggleProps) => {
-  const [checked, setChecked] = useState(false)
   const [unit, setUnit] = useState(UNITS.CELSIUS)
 
   const handleChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    setChecked((checked) => !checked)
     setDisplayData((displayData) => {
       const temperature = parseInt(displayData.temperature!)
       return {
