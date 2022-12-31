@@ -1,4 +1,3 @@
-import { Switch } from "@mui/material"
 import { useState } from "react"
 import * as S from "./styles"
 import { UnitsToggleProps } from "./types"
@@ -13,7 +12,7 @@ export const UnitsToggle = ({ setDisplayData }: UnitsToggleProps) => {
   const [checked, setChecked] = useState(false)
   const [unit, setUnit] = useState(UNITS.CELSIUS)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     setChecked((checked) => !checked)
     setDisplayData((displayData) => {
       const temperature = parseInt(displayData.temperature!)
@@ -31,7 +30,10 @@ export const UnitsToggle = ({ setDisplayData }: UnitsToggleProps) => {
   return (
     <S.StyledUnitsToggle>
       <S.UnitLabel>ºC</S.UnitLabel>
-      <Switch checked={checked} onChange={handleChange} />
+      <label>
+        <input type="checkbox" onClick={handleChange} />
+        <span />
+      </label>
       <S.UnitLabel>ºF</S.UnitLabel>
     </S.StyledUnitsToggle>
   )
