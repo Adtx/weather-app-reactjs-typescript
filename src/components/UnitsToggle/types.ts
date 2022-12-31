@@ -1,3 +1,5 @@
+import { displayDataType } from "../../types"
+
 export interface UnitsToggleProps {
-  setUnit: React.Dispatch<React.SetStateAction<number>>
+  setDisplayData: React.Dispatch<React.SetStateAction<displayDataType>>
 }

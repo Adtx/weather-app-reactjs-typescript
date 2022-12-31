@@ -21,23 +21,21 @@ export const WeatherApp = () => {
       sunset: 0,
     },
   })
-  const [unit, setUnit] = useState(0)
   const [openLocationPicker, setOpenLocationPicker] = useState(false)
 
   const locationPickerRef = useRef(null)
 
   useEffect(() => {
-    fetchWeatherInfo(displayData.location, unit).then((weatherInfo) => {
+    fetchWeatherInfo(displayData.location).then((weatherInfo) => {
       const { temp, description, icon, sunrise, sunset } = weatherInfo!
       setDisplayData((displayData) => ({
         ...displayData,
-        temperature:
-          temp.toFixed() + " " + (unit === UNITS.CELSIUS ? "ºC" : "ºF"),
+        temperature: temp.toFixed() + " ºC",
         weatherIcon: { icon, description },
         daylightTimes: { sunrise, sunset },
       }))
     })
-  }, [displayData.location, unit])
+  }, [displayData.location])
 
   const closeLocationPicker = (
     e: React.MouseEvent<HTMLElement, MouseEvent>
@@ -65,7 +63,7 @@ export const WeatherApp = () => {
       </S.Header>
       <S.InputArea>
         <LocationPicker {...locationPickerProps} />
-        <UnitsToggle setUnit={setUnit} />
+        <UnitsToggle setDisplayData={setDisplayData} />
       </S.InputArea>
       <TemperatureDisplay temperature={displayData.temperature!} />
       <WeatherIcon icon={displayData.weatherIcon} />
