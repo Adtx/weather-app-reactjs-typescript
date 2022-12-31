@@ -71,7 +71,7 @@ export const WeatherApp = () => {
       </S.Header>
       <S.InputArea>
         <LocationPicker {...locationPickerProps} />
-        <UnitsToggle setDisplayData={setDisplayData} />
+        <UnitsToggle loading={loading} setDisplayData={setDisplayData} />
       </S.InputArea>
       {
         // prettier-ignore

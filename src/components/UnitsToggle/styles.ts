@@ -1,10 +1,12 @@
 import styled from "styled-components"
+import { StyledUnitsToggleProps } from "./types"
 
-export const StyledUnitsToggle = styled.div`
+export const StyledUnitsToggle = styled.div<StyledUnitsToggleProps>`
   align-items: center;
   display: flex;
   height: 4vh;
   justify-content: space-between;
+  opacity: ${(props) => (!props.loadingData ? "1" : "0.4")};
   width: 25%;
 
   & label {
