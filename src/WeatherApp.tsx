@@ -7,6 +7,7 @@ import * as U from "./components/UnitsToggle/UnitsToggle"
 import { WeatherIcon } from "./components/WeatherIcon/WeatherIcon"
 import { DaylightClock } from "./DaylightClock/DaylightClock"
 import { displayDataType } from "./types"
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary"
 
 export const WeatherApp = () => {
   const [displayData, setDisplayData] = useState<displayDataType>({
@@ -53,12 +54,16 @@ export const WeatherApp = () => {
         <S.Title>Weather app</S.Title>
       </S.Header>
       <S.InputArea>
-        <LocationPicker setDisplayData={setDisplayData} />
-        <U.UnitsToggle
-          location={displayData.location}
-          loading={loading}
-          setDisplayData={setDisplayData}
-        />
+        <ErrorBoundary>
+          <LocationPicker setDisplayData={setDisplayData} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <U.UnitsToggle
+            location={displayData.location}
+            loading={loading}
+            setDisplayData={setDisplayData}
+          />
+        </ErrorBoundary>
       </S.InputArea>
       {
         // prettier-ignore
@@ -67,9 +72,15 @@ export const WeatherApp = () => {
           <S.LoadingMessage>Loading...</S.LoadingMessage>
         : 
           <>
-            <TemperatureDisplay temperature={displayData.temperature!} />
-            <WeatherIcon icon={displayData.weatherIcon} />
-            <DaylightClock location={displayData.location} daylightTimes={displayData.daylightTimes} />
+            <ErrorBoundary>
+              <TemperatureDisplay temperature={displayData.temperature!} />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <WeatherIcon icon={displayData.weatherIcon} />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <DaylightClock location={displayData.location} daylightTimes={displayData.daylightTimes} />
+            </ErrorBoundary>
           </>
       }
     </S.StyledWeatherApp>

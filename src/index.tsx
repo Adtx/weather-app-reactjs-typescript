@@ -2,10 +2,13 @@ import "./index.css"
 import { WeatherApp } from "./WeatherApp"
 import { StrictMode } from "react"
 import ReactDOM from "react-dom/client"
+import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 root.render(
   <StrictMode>
-    <WeatherApp />
+    <ErrorBoundary>
+      <WeatherApp />
+    </ErrorBoundary>
   </StrictMode>
 )
