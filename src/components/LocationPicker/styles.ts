@@ -1,27 +1,34 @@
 import styled from "styled-components"
 
-export const StyledLocationPicker = styled.div`
-  align-self: flex-start;
+export const StyledLocationPicker = styled.select`
   background-color: #fff;
   box-shadow: 1px 1px 4px 3px rgba(28, 33, 39, 0.6);
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  height: 4vh;
   width: 30%;
 
   :hover {
     cursor: pointer;
   }
 
-  & > div:first-of-type {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
+  & > option {
+    background-color: #fff;
+    box-shadow: 1px 1px 4px 3px rgba(28, 33, 39, 0.6);
     height: 4vh;
+    padding: 4px;
+    width: 100%;
+
+    :hover {
+      background-color: #f0ecec;
+      cursor: pointer;
+    }
 
     @media (max-width: 1366px) {
-      height: 6vh;
+      top: 6.2vh;
     }
+  }
+
+  @media (max-width: 1366px) {
+    height: 6vh;
   }
 
   @media (min-width: 520px) {
@@ -46,35 +53,5 @@ export const StyledLocationPicker = styled.div`
 
   @media (min-width: 1000px) {
     width: 30%;
-  }
-`
-
-export const OptionsMenu = styled.div`
-  background-color: #fff;
-  box-shadow: 1px 1px 4px 3px rgba(28, 33, 39, 0.6);
-  display: flex;
-  flex-direction: column;
-  left: 0;
-  padding: 4px;
-  position: absolute;
-  top: 4.2vh;
-  width: 100%;
-
-  :hover {
-    cursor: pointer;
-  }
-
-  & > div {
-    align-items: center;
-    display: flex;
-    height: 4vh;
-
-    :hover {
-      background-color: #f0ecec;
-    }
-  }
-
-  @media (max-width: 1366px) {
-    top: 6.2vh;
   }
 `

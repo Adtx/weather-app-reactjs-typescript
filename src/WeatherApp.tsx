@@ -1,5 +1,5 @@
 import * as S from "./styles"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
 import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
 import { LocationPicker } from "./components/LocationPicker/LocationPicker"
@@ -21,10 +21,7 @@ export const WeatherApp = () => {
       sunset: 0,
     },
   })
-  const [openLocationPicker, setOpenLocationPicker] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const locationPickerRef = useRef(null)
 
   useEffect(() => {
     setLoading(true)
@@ -50,32 +47,13 @@ export const WeatherApp = () => {
     return () => { requestCanceled = true }
   }, [displayData.location])
 
-  const closeLocationPicker = (
-    e: React.MouseEvent<HTMLElement, MouseEvent>
-  ) => {
-    if (
-      locationPickerRef.current &&
-      !(locationPickerRef.current as HTMLDivElement).contains(
-        e.target as HTMLElement
-      )
-    )
-      setOpenLocationPicker(false)
-  }
-
-  const locationPickerProps = {
-    setDisplayData,
-    locationPickerRef,
-    displayLocationsMenu: openLocationPicker,
-    setDisplayLocationsMenu: setOpenLocationPicker,
-  }
-
   return (
-    <S.StyledWeatherApp onClick={closeLocationPicker}>
+    <S.StyledWeatherApp>
       <S.Header>
         <S.Title>Weather app</S.Title>
       </S.Header>
       <S.InputArea>
-        <LocationPicker {...locationPickerProps} />
+        <LocationPicker setDisplayData={setDisplayData} />
         <U.UnitsToggle
           location={displayData.location}
           loading={loading}
