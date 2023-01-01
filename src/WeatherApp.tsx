@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
 import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
 import { LocationPicker } from "./components/LocationPicker/LocationPicker"
-import { UNITS, UnitsToggle } from "./components/UnitsToggle/UnitsToggle"
+import * as U from "./components/UnitsToggle/UnitsToggle"
 import { WeatherIcon } from "./components/WeatherIcon/WeatherIcon"
 import { DaylightClock } from "./DaylightClock/DaylightClock"
 import { displayDataType } from "./types"
@@ -34,7 +34,12 @@ export const WeatherApp = () => {
         const { temp, description, icon, sunrise, sunset } = weatherInfo!
         setDisplayData((displayData) => ({
           ...displayData,
-          temperature: temp.toFixed() + " ºC",
+          temperature: U.localeFormatTemperature(
+            displayData.location,
+            Math.round(temp),
+            // prettier-ignore
+            { style: "unit", unit: "celsius" }
+          ),
           weatherIcon: { icon, description },
           daylightTimes: { sunrise, sunset },
         }))
@@ -71,7 +76,11 @@ export const WeatherApp = () => {
       </S.Header>
       <S.InputArea>
         <LocationPicker {...locationPickerProps} />
-        <UnitsToggle loading={loading} setDisplayData={setDisplayData} />
+        <U.UnitsToggle
+          location={displayData.location}
+          loading={loading}
+          setDisplayData={setDisplayData}
+        />
       </S.InputArea>
       {
         // prettier-ignore
