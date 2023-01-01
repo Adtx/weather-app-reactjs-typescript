@@ -3,6 +3,8 @@ import { WeatherInfo } from "./types"
 const WEATHER_API_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 const UNIT_SYSTEM = ["metric", "imperial"]
 
+class HttpRequestError extends Error {}
+
 // Return true if results are older than 30 minutes
 const apiResultsOutOfDate = (timestamp: number | null) => {
   const now = Math.floor(new Date().getTime() / 1000)
@@ -41,6 +43,10 @@ export const fetchWeatherInfo = async (
     let apiResults = getAPIResultsFromSessionStorage(location)
     if (apiResults === null) {
       const res = await fetch(`${WEATHER_API_BASE_URL}?${apiQueryString}`)
+      if (!res.ok)
+        throw new HttpRequestError(
+          `API request to api.openweathermap.org failed with HTTP status: ${res.status} ${res.statusText}`
+        )
       apiResults = (await res.json()) as WeatherInfo
       saveAPIResultsToSessionStorage(location, apiResults)
     }
@@ -52,5 +58,6 @@ export const fetchWeatherInfo = async (
     return { temp, description, icon, sunrise, sunset }
   } catch (error) {
     console.error(error)
+    if (error instanceof HttpRequestError) throw error
   }
 }

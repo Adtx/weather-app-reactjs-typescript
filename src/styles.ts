@@ -49,7 +49,7 @@ export const InputArea = styled.section`
   width: 80%;
 `
 
-export const LoadingMessage = styled.h2`
+export const Message = styled.h2`
   color: #fff;
   font-size: 3rem;
   margin-top: 25%;

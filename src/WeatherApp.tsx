@@ -23,30 +23,61 @@ export const WeatherApp = () => {
     },
   })
   const [loading, setLoading] = useState(false)
+  const [httpRequestError, setHttpRequestError] = useState(false)
 
   useEffect(() => {
-    setLoading(true)
-    let requestCanceled = false
-    fetchWeatherInfo(displayData.location).then((weatherInfo) => {
-      if (!requestCanceled) {
-        const { temp, description, icon, sunrise, sunset } = weatherInfo!
-        setDisplayData((displayData) => ({
-          ...displayData,
-          temperature: U.localeFormatTemperature(
-            displayData.location,
-            Math.round(temp),
-            // prettier-ignore
-            { style: "unit", unit: "celsius" }
-          ),
-          weatherIcon: { icon, description },
-          daylightTimes: { sunrise, sunset },
-        }))
+    const loadLocationWeather = async () => {
+      try {
+        const weatherInfo = await fetchWeatherInfo(displayData.location)
+        if (!requestCanceled) {
+          const { temp, description, icon, sunrise, sunset } = weatherInfo!
+          setDisplayData((displayData) => ({
+            ...displayData,
+            temperature: U.localeFormatTemperature(
+              displayData.location,
+              Math.round(temp),
+              // prettier-ignore
+              { style: "unit", unit: "celsius" }
+            ),
+            weatherIcon: { icon, description },
+            daylightTimes: { sunrise, sunset },
+          }))
+          setLoading(false)
+        }
+      } catch (error) {
+        setHttpRequestError(true)
         setLoading(false)
       }
-    })
-    // prettier-ignore
-    return () => { requestCanceled = true }
+    }
+    setLoading(true)
+    let requestCanceled = false
+    loadLocationWeather()
+    return () => {
+      requestCanceled = true
+      setHttpRequestError(false)
+    }
   }, [displayData.location])
+
+  const renderDataDisplayArea = () => {
+    if (loading) return <S.Message>Loading...</S.Message>
+    else if (httpRequestError) return <S.Message>HTTP request error.</S.Message>
+    return (
+      <>
+        <ErrorBoundary>
+          <TemperatureDisplay temperature={displayData.temperature!} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <WeatherIcon icon={displayData.weatherIcon} />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <DaylightClock
+            location={displayData.location}
+            daylightTimes={displayData.daylightTimes}
+          />
+        </ErrorBoundary>
+      </>
+    )
+  }
 
   return (
     <S.StyledWeatherApp>
@@ -65,24 +96,7 @@ export const WeatherApp = () => {
           />
         </ErrorBoundary>
       </S.InputArea>
-      {
-        // prettier-ignore
-        loading 
-        ? 
-          <S.LoadingMessage>Loading...</S.LoadingMessage>
-        : 
-          <>
-            <ErrorBoundary>
-              <TemperatureDisplay temperature={displayData.temperature!} />
-            </ErrorBoundary>
-            <ErrorBoundary>
-              <WeatherIcon icon={displayData.weatherIcon} />
-            </ErrorBoundary>
-            <ErrorBoundary>
-              <DaylightClock location={displayData.location} daylightTimes={displayData.daylightTimes} />
-            </ErrorBoundary>
-          </>
-      }
+      {renderDataDisplayArea()}
     </S.StyledWeatherApp>
   )
 }
