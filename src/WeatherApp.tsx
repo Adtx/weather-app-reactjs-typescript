@@ -82,7 +82,7 @@ export const WeatherApp = () => {
           <>
             <TemperatureDisplay temperature={displayData.temperature!} />
             <WeatherIcon icon={displayData.weatherIcon} />
-            <DaylightClock daylightTimes={displayData.daylightTimes} />
+            <DaylightClock location={displayData.location} daylightTimes={displayData.daylightTimes} />
           </>
       }
     </S.StyledWeatherApp>
