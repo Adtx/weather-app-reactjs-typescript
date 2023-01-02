@@ -1,5 +1,18 @@
-import { StyledDaylightClock } from "./styles"
-import { DaylightClockProps } from "./types"
+import styled from "styled-components"
+
+const StyledDaylightClock = styled.section`
+  color: #fff;
+  display: flex;
+  font-size: 1rem;
+  height: 10vh;
+  margin-top: 20%;
+  width: 65%;
+  justify-content: space-around;
+`
+interface DaylightClockProps {
+  location: string
+  daylightTimes: { sunrise: number; sunset: number }
+}
 
 const CITY_LOCALE_TIMEZONE_MAP = {
   Lisbon: {

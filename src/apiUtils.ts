@@ -1,4 +1,23 @@
-import { WeatherInfo } from "./types"
+interface WeatherInfo {
+  weather: Weather[]
+  main: MainInfo
+  dt: number
+  sys: Sys
+}
+
+interface Sys {
+  sunrise: number
+  sunset: number
+}
+
+interface MainInfo {
+  temp: number
+}
+
+interface Weather {
+  description: string
+  icon: string
+}
 
 const WEATHER_API_BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 const UNIT_SYSTEM = ["metric", "imperial"]
