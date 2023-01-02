@@ -4,7 +4,7 @@ import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureD
 import { LocationPicker } from "./components/LocationPicker/LocationPicker"
 import * as U from "./components/UnitsToggle/UnitsToggle"
 import { WeatherIcon } from "./components/WeatherIcon/WeatherIcon"
-import { DaylightClock } from "./DaylightClock/DaylightClock"
+import { DaylightClock } from "./components/DaylightClock/DaylightClock"
 import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary"
 import styled from "styled-components"
 
