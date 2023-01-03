@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { displayDataType } from "../../WeatherApp"
+import { displayDataType, UNITS } from "../../WeatherApp"
 import styled from "styled-components"
 
 const StyledUnitsToggle = styled.div<StyledUnitsToggleProps>`
@@ -71,7 +70,7 @@ const UnitLabel = styled.h3`
 `
 
 interface UnitsToggleProps {
-  location: string
+  unit: number
   loading: boolean
   setDisplayData: React.Dispatch<React.SetStateAction<displayDataType>>
 }
@@ -80,63 +79,27 @@ export interface StyledUnitsToggleProps {
   loadingData: boolean
 }
 
-export enum UNITS {
-  CELSIUS,
-  FAHRENHEIT,
-}
 const NUMBER_OF_AVAILABLE_UNITS = 2
 
-const CITY_LOCALE_MAP = {
-  Lisbon: "pt-PT",
-  London: "en-GB",
-  Madrid: "es-ES",
-  Miami: "en-US",
-  "New York": "en-US",
-  Paris: "fr-FR",
-  "Rio de Janeiro": "pt-BR",
-  Sydney: "en-AU",
-  Tokyo: "ja-JP",
-}
-
-export const localeFormatTemperature = (
-  location: string,
-  temperature: number,
-  options: Intl.NumberFormatOptions
-) =>
-  new Intl.NumberFormat((CITY_LOCALE_MAP as any)[location], options).format(
-    temperature
-  )
-
 export const UnitsToggle = ({
-  location,
+  unit,
   loading,
   setDisplayData,
 }: UnitsToggleProps) => {
-  const [unit, setUnit] = useState(UNITS.CELSIUS)
-
-  const temperatureFormatOptions = {
-    style: "unit",
-    unit: unit ? "celsius" : "fahrenheit",
-  }
-
   const handleChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     if (!loading) {
       setDisplayData((displayData) => {
-        let temperature = parseInt(displayData.temperature!)
+        let temperature = displayData.temperature
         temperature =
           unit === UNITS.CELSIUS
             ? Math.round(temperature * (9 / 5) + 32)
             : Math.round((temperature - 32) * (5 / 9))
         return {
           ...displayData,
-          temperature: localeFormatTemperature(
-            location,
-            temperature,
-            temperatureFormatOptions
-          ),
+          temperature: temperature,
+          unit: (displayData.unit + 1) % NUMBER_OF_AVAILABLE_UNITS,
         }
       })
-      setUnit((unit) => (unit + 1) % NUMBER_OF_AVAILABLE_UNITS)
     }
   }
 

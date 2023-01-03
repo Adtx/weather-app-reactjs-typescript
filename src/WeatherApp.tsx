@@ -67,7 +67,8 @@ const Message = styled.h2`
 
 export type displayDataType = {
   location: string
-  temperature: string | null
+  temperature: number
+  unit: number
   weatherIcon: {
     icon: string
     description: string
@@ -78,10 +79,16 @@ export type displayDataType = {
   }
 }
 
+export enum UNITS {
+  CELSIUS,
+  FAHRENHEIT,
+}
+
 export const WeatherApp = () => {
   const [displayData, setDisplayData] = useState<displayDataType>({
     location: "Lisbon",
-    temperature: null,
+    temperature: 0,
+    unit: UNITS.CELSIUS,
     weatherIcon: {
       icon: "",
       description: "",
@@ -102,12 +109,7 @@ export const WeatherApp = () => {
           const { temp, description, icon, sunrise, sunset } = weatherInfo!
           setDisplayData((displayData) => ({
             ...displayData,
-            temperature: U.localeFormatTemperature(
-              displayData.location,
-              Math.round(temp),
-              // prettier-ignore
-              { style: "unit", unit: "celsius" }
-            ),
+            temperature: temp,
             weatherIcon: { icon, description },
             daylightTimes: { sunrise, sunset },
           }))
@@ -133,7 +135,11 @@ export const WeatherApp = () => {
     return (
       <>
         <ErrorBoundary>
-          <TemperatureDisplay temperature={displayData.temperature!} />
+          <TemperatureDisplay
+            temperature={displayData.temperature!}
+            unit={displayData.unit}
+            location={displayData.location}
+          />
         </ErrorBoundary>
         <ErrorBoundary>
           <WeatherIcon icon={displayData.weatherIcon} />
@@ -159,7 +165,7 @@ export const WeatherApp = () => {
         </ErrorBoundary>
         <ErrorBoundary>
           <U.UnitsToggle
-            location={displayData.location}
+            unit={displayData.unit}
             loading={loading}
             setDisplayData={setDisplayData}
           />
