@@ -111,10 +111,10 @@ export const WeatherApp = () => {
             weatherIcon: { icon, description },
             daylightTimes: { sunrise, sunset },
           }))
-          setLoading(false)
         }
       } catch (error) {
         setHttpRequestError(true)
+      } finally {
         setLoading(false)
       }
     }

@@ -122,21 +122,18 @@ export const UnitsToggle = ({
   const handleChange = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
     if (!loading) {
       setDisplayData((displayData) => {
-        const temperature = parseInt(displayData.temperature!)
+        let temperature = parseInt(displayData.temperature!)
+        temperature =
+          unit === UNITS.CELSIUS
+            ? Math.round(temperature * (9 / 5) + 32)
+            : Math.round((temperature - 32) * (5 / 9))
         return {
           ...displayData,
-          temperature:
-            unit === UNITS.CELSIUS
-              ? localeFormatTemperature(
-                  location,
-                  Math.round(temperature * (9 / 5) + 32),
-                  temperatureFormatOptions
-                )
-              : localeFormatTemperature(
-                  location,
-                  Math.round((temperature - 32) * (5 / 9)),
-                  temperatureFormatOptions
-                ),
+          temperature: localeFormatTemperature(
+            location,
+            temperature,
+            temperatureFormatOptions
+          ),
         }
       })
       setUnit((unit) => (unit + 1) % NUMBER_OF_AVAILABLE_UNITS)
