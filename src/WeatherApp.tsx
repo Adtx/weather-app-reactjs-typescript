@@ -109,7 +109,10 @@ export const WeatherApp = () => {
           const { temp, description, icon, sunrise, sunset } = weatherInfo!
           setDisplayData((displayData) => ({
             ...displayData,
-            temperature: temp,
+            temperature:
+              displayData.unit === UNITS.FAHRENHEIT
+                ? U.convertTemperature(temp, UNITS.CELSIUS)
+                : temp,
             weatherIcon: { icon, description },
             daylightTimes: { sunrise, sunset },
           }))

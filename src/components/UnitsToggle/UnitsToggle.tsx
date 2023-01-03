@@ -81,6 +81,11 @@ export interface StyledUnitsToggleProps {
 
 const NUMBER_OF_AVAILABLE_UNITS = 2
 
+export const convertTemperature = (temperature: number, currentUnit: number) =>
+  currentUnit === UNITS.CELSIUS
+    ? temperature * (9 / 5) + 32
+    : (temperature - 32) * (5 / 9)
+
 export const UnitsToggle = ({
   unit,
   loading,
@@ -90,10 +95,7 @@ export const UnitsToggle = ({
     if (!loading) {
       setDisplayData((displayData) => {
         let temperature = displayData.temperature
-        temperature =
-          unit === UNITS.CELSIUS
-            ? Math.round(temperature * (9 / 5) + 32)
-            : Math.round((temperature - 32) * (5 / 9))
+        temperature = convertTemperature(temperature, unit)
         return {
           ...displayData,
           temperature: temperature,
