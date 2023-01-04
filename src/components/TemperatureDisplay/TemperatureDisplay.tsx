@@ -13,7 +13,7 @@ interface TemperatureDisplayProps {
   location: string
 }
 
-const CITY_LOCALE_MAP = {
+const CITY_LOCALE_MAP: Record<string, string> = {
   Lisbon: "pt-PT",
   London: "en-GB",
   Madrid: "es-ES",
@@ -30,7 +30,7 @@ const localeFormatTemperature = (
   temperature: number,
   options: Intl.NumberFormatOptions
 ) =>
-  new Intl.NumberFormat((CITY_LOCALE_MAP as any)[location], options).format(
+  new Intl.NumberFormat(CITY_LOCALE_MAP[location], options).format(
     Math.round(temperature)
   )
 

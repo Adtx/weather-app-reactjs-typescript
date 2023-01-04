@@ -14,7 +14,9 @@ interface DaylightClockProps {
   daylightTimes: { sunrise: number; sunset: number }
 }
 
-const CITY_LOCALE_TIMEZONE_MAP = {
+type LocaleTimezone = { locale: string; timezone: string }
+
+const CITY_LOCALE_TIMEZONE_MAP: Record<string, LocaleTimezone> = {
   Lisbon: {
     locale: "pt-PT",
     timezone: "Europe/Lisbon",
@@ -62,10 +64,10 @@ export const DaylightClock = ({
     const options = {
       hour: numericFormat,
       minute: numericFormat,
-      timeZone: (CITY_LOCALE_TIMEZONE_MAP as any)[location].timezone as string,
+      timeZone: CITY_LOCALE_TIMEZONE_MAP[location].timezone,
     }
     return `${new Intl.DateTimeFormat(
-      (CITY_LOCALE_TIMEZONE_MAP as any)[location].locale,
+      CITY_LOCALE_TIMEZONE_MAP[location].locale,
       options
     ).format(new Date(timestamp * 1000))}`
   }
