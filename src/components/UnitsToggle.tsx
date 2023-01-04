@@ -1,4 +1,4 @@
-import { displayDataType, UNITS } from "../../WeatherApp"
+import { displayDataType, UNITS } from "../WeatherApp"
 import styled from "styled-components"
 
 const StyledUnitsToggle = styled.div<StyledUnitsToggleProps>`

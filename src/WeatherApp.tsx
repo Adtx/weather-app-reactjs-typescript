@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "./apiUtils"
-import { TemperatureDisplay } from "./components/TemperatureDisplay/TemperatureDisplay"
-import { LocationPicker } from "./components/LocationPicker/LocationPicker"
-import * as U from "./components/UnitsToggle/UnitsToggle"
-import { WeatherIcon } from "./components/WeatherIcon/WeatherIcon"
-import { DaylightClock } from "./components/DaylightClock/DaylightClock"
-import { ErrorBoundary } from "./components/ErrorBoundary/ErrorBoundary"
+import { TemperatureDisplay } from "./components/TemperatureDisplay"
+import { LocationPicker } from "./components/LocationPicker"
+import * as U from "./components/UnitsToggle"
+import { WeatherIcon } from "./components/WeatherIcon"
+import { DaylightClock } from "./components/DaylightClock"
+import { ErrorBoundary } from "./components/ErrorBoundary"
 import styled from "styled-components"
 
 const Header = styled.header`

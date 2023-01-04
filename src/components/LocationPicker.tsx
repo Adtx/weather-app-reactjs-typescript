@@ -1,4 +1,4 @@
-import { displayDataType } from "../../WeatherApp"
+import { displayDataType } from "../WeatherApp"
 import styled from "styled-components"
 
 const StyledLocationPicker = styled.select`
