@@ -25,7 +25,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build --repo https://github.com/Adtx/weather-app-reactjs-typescript.git"
   },
   "homepage": "https://adtx.github.io/weather-app-reactjs-typescript",
   "eslintConfig": {
